@@ -390,7 +390,7 @@ c(2, 2) * c(4, 5) # element-wise multiplication (Hadamard product)
     x + 1:4 # recycling
 
 - Calculate:
-  - $4\cdot\begin{pmatrix}2\\ 3\\ \end{pmatrix}$
+  - $4\cdot\left(\begin{matrix}2\\ 3\\ \end{matrix}\right)$
   - $\pmatrix{27\\64} + \pmatrix{14\\16}$
 - calculate the scalar product of $\pmatrix{1\\1\\2}$ and
   $\begin{pmatrix}4\\2\\3\end{pmatrix}$. How can you realize it in a
