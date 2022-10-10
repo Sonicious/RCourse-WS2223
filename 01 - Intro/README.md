@@ -390,11 +390,11 @@ c(2, 2) * c(4, 5) # element-wise multiplication (Hadamard product)
     x + 1:4 # recycling
 
 - Calculate:
-  - $4\cdot\pmatrix{2\\3\\}$
-  - $\pmatrix{27\\64\\} + \pmatrix{14\\16\\}$
+  - $4\cdot\begin{pmatrix}2\\ 3\\ \end{pmatrix}$
+  - $\pmatrix{27\\64} + \pmatrix{14\\16}$
 - calculate the scalar product of $\pmatrix{1\\1\\2}$ and
-  $\pmatrix{4\\2\\3\\}$. How can you realize it in a simple form with
-  the known commands?
+  $\begin{pmatrix}4\\2\\3\end{pmatrix}$. How can you realize it in a
+  simple form with the known commands?
 - `rnorm(n)` gives a vector with a normal distribution with mean 0 and
   standard deviation 1 of length n, how to get a normal distribution
   centered around 5 and standard deviation 0.5?
