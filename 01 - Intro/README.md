@@ -399,7 +399,10 @@ c(2, 2) * c(4, 5) # element-wise multiplication (Hadamard product)
   standard deviation 1 of length n, how to get a normal distribution
   centered around 5 and standard deviation 0.5?
 
-$$4\left(\matrix{2\\ 3}\right)$$
+$$ {\left\lbrack \matrix{2 & 3 \cr 4 & 5} \right\rbrack} 
+* \left\lbrack \matrix{1 & 0 \cr 0 & 1} \right\rbrack
+= \left\lbrack \matrix{2 & 3 \cr 4 & 5} \right\rbrack
+$$
 
 # Matrices
 
