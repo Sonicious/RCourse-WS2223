@@ -680,10 +680,12 @@ in R Studio</p>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sentence</span></code></pre></div>
 <pre><code>## [1] &quot;hello world&quot;</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>() <span class="co"># list all variables</span></span></code></pre></div>
-<pre><code>## [1] &quot;age_days&quot;  &quot;age_years&quot; &quot;sentence&quot;</code></pre>
+<pre><code>##  [1] &quot;a&quot;         &quot;age_days&quot;  &quot;age_years&quot; &quot;b&quot;         &quot;cc&quot;        &quot;d&quot;        
+##  [7] &quot;df1&quot;       &quot;iris&quot;      &quot;sentence&quot;  &quot;x&quot;         &quot;y&quot;</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="st">&quot;age_days&quot;</span>) <span class="co"># remove variable</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;age_years&quot; &quot;sentence&quot;</code></pre>
+<pre><code>##  [1] &quot;a&quot;         &quot;age_years&quot; &quot;b&quot;         &quot;cc&quot;        &quot;d&quot;         &quot;df1&quot;      
+##  [7] &quot;iris&quot;      &quot;sentence&quot;  &quot;x&quot;         &quot;y&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># clear workspace</span></span></code></pre></div>
 <p><strong>Exercise</strong>:</p>
 <ul>
@@ -826,13 +828,12 @@ x + 1:4 # recycling</code></pre>
 <ul>
 <li>Calculate:
 <ul>
-<li><span class="math inline">\(4\cdot\begin{pmatrix}2\\3\end{pmatrix}\)</span></li>
-<li><span class="math inline">\(\begin{pmatrix}27\\64\end{pmatrix} +
-\begin{pmatrix}14\\16\end{pmatrix}\)</span></li>
+<li><span class="math inline">\(4\cdot\pmatrix{2\\3\\}\)</span></li>
+<li><span class="math inline">\(\pmatrix{27\\64\\} +
+\pmatrix{14\\16\\}\)</span></li>
 </ul></li>
-<li>calculate the scalar product of <span class="math inline">\(\begin{pmatrix}1\\1\\2\end{pmatrix}\)</span> and
-<span class="math inline">\(\begin{pmatrix}4\\2\\3\end{pmatrix}\)</span>. How
-can you realize it in a simple form with the known commands?</li>
+<li>calculate the scalar product of <span class="math inline">\(\pmatrix{1\\1\\2}\)</span> and <span class="math inline">\(\pmatrix{4\\2\\3\\}\)</span>. How can you realize
+it in a simple form with the known commands?</li>
 <li><code>rnorm(n)</code> gives a vector with a normal distribution with
 mean 0 and standard deviation 1 of length n, how to get a normal
 distribution centered around 5 and standard deviation 0.5?</li>

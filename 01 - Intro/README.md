@@ -69,14 +69,16 @@ sentence
 ls() # list all variables
 ```
 
-    ## [1] "age_days"  "age_years" "sentence"
+    ##  [1] "a"         "age_days"  "age_years" "b"         "cc"        "d"        
+    ##  [7] "df1"       "iris"      "sentence"  "x"         "y"
 
 ``` r
 rm("age_days") # remove variable
 ls()
 ```
 
-    ## [1] "age_years" "sentence"
+    ##  [1] "a"         "age_years" "b"         "cc"        "d"         "df1"      
+    ##  [7] "iris"      "sentence"  "x"         "y"
 
 ``` r
 rm(list = ls()) # clear workspace
@@ -388,11 +390,11 @@ c(2, 2) * c(4, 5) # element-wise multiplication (Hadamard product)
     x + 1:4 # recycling
 
 - Calculate:
-  - $4\cdot\begin{pmatrix}2\\3\end{pmatrix}$
-  - $\begin{pmatrix}27\\64\end{pmatrix} + \begin{pmatrix}14\\16\end{pmatrix}$
-- calculate the scalar product of $\begin{pmatrix}1\\1\\2\end{pmatrix}$
-  and $\begin{pmatrix}4\\2\\3\end{pmatrix}$. How can you realize it in a
-  simple form with the known commands?
+  - $4\cdot\pmatrix{2\\3\\}$
+  - $\pmatrix{27\\64\\} + \pmatrix{14\\16\\}$
+- calculate the scalar product of $\pmatrix{1\\1\\2}$ and
+  $\pmatrix{4\\2\\3\\}$. How can you realize it in a simple form with
+  the known commands?
 - `rnorm(n)` gives a vector with a normal distribution with mean 0 and
   standard deviation 1 of length n, how to get a normal distribution
   centered around 5 and standard deviation 0.5?
