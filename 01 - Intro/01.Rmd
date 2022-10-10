@@ -1,0 +1,384 @@
+---
+title: "Lesson 01"
+output: [github_document, pdf_document, html_document]
+---
+
+# The *read evaluate print loop* (REPL)
+
+```{r prompt = TRUE, comment = ""}
+""
+```
+
+`>` is the *prompt* and indicates that `R` is waiting for your input.
+
+On the sheets/slides we don't prepend code with `>` and prepend output with `##`, this
+makes you able to copy/paste code to your REPL.
+
+```{r}
+""
+```
+
+# R as a calculator
+
+```{r, eval = FALSE}
+1 + 1
+cos(2 * pi)
+sum(1:5)
+pi
+(3 + 4) * 3
+3 + 4 * 3 # where is the difference?
+-2 ^ 2
+0 ^ 0
+1 / 0   # not an error!
+5 %/% 2 # integer division
+5 %% 2  # 5 mod 2
+TRUE & FALSE   # and
+TRUE && FALSE
+TRUE | FALSE  # or
+TRUE || FALSE
+!TRUE         # not
+3 == 3  # relational tests
+3 != 3
+3 > 5
+2 <= 4
+7 >= 5
+```
+
+# Variables
+
+Assignment operator: `<-`, use **Alt -** in R Studio
+
+```{r}
+age_years <- 3
+age_days <- age_years * 365
+age_days
+
+sentence <- "hello world"
+sentence
+ls() # list all variables
+
+rm("age_days") # remove variable
+ls()
+
+rm(list = ls()) # clear workspace
+```
+
+**Exercise**:
+
+  * Calculate `age_hours`, `age_minutes`, `age_seconds`, assign a variable
+  * Create a Variable `me` with your name
+
+# Data types
+`mode` gives you the according datatype of something
+```{r}
+mode(49)
+mode(1 + 1i)
+mode("Hello world")
+mode(TRUE)
+mode(sum)
+mode(list(1, 2, 3))
+```
+you can use `'...'` or `"..."` to delimit strings. It makes no difference
+
+There are some more modes but these are not important for us (There is also
+`typeof`, `storage.mode`, and `class`).
+
+# Vectors
+in `R` **everything** is a vector!, create a vector with `c(e1, e2, e3, ...)`
+
+```{r}
+a <- c(1, 2, 3)
+print(a)
+b <- 1:4
+print(b)
+d <- c("yes","no","maybe", 4, TRUE, a)
+print(d)
+x <- seq(0, 1, length.out = 11) # creating a sequence
+print(x)
+```
+
+## Indexing vectors
+Indexing is done using `[`, see also `help("[")`
+
+Extract elements/subset by position
+```{r}
+x <- seq(0, 1, length.out = 11)
+x # the entire vector
+x[] # the entire vector
+x[1] # extract a single element
+x[c(1, 3)] # subset
+x[1:3] # sequential subset
+```
+
+## Working with vectors
+Try to find out what happens in the according lines
+```{r, eval = TRUE}
+cc <- seq(1, 0, length.out = 6)
+cc
+sort(cc)
+order(cc)
+cc[order(cc)]
+rev(cc)
+```
+
+```{r}
+length(cc)
+mean(cc)
+sum(cc)
+```
+
+Exercise: Calculate the sum of all entire numbers from 1 to 100.
+
+## Assignment of vectors
+```{r}
+x
+x[1] <- 5
+x[4] <- 6
+x[5:6] <- 10
+x
+x[x < 0.3] <- -999
+```
+
+## Named vectors
+The elements of a vector can also be named.
+```{r}
+x <- c(a = 1, b = 2, c = 3)
+x
+names(x) <- c("c", "d", "e") # add or modify names
+x
+names(x) <- NULL # remove names
+x
+x <- c(a = 1, b = 2, c = 3)
+x["a"] # indexing
+```
+
+Be aware of mixing named and unnamed vectoring:
+```{r}
+x <- 1:4
+x["a"] <- 999
+x
+```
+**But!**
+```{r}
+x <- c(a = 1, b = 2, c = 3)
+x[1] <- 999
+x
+```
+
+## Vector arithmetics
+```{r}
+x <- 1:6
+x + 1
+x * 2
+sqrt(x) # square root
+sum(x) # sum of elements
+prod(x) # product of elements
+c(2, 2) * c(4, 5) # element-wise multiplication (Hadamard product)
+```
+
+**Exercise**:
+
+  * What `mode` are the elements of `d <- c("yes","no","maybe", 4, TRUE, a)`? Why?
+  * What is happening here? Try to interprete
+  ```
+  x <- 1:6
+  x + 1:2 # recycling
+  x + 1:4 # recycling
+  ```
+  * Calculate:
+    * $4\cdot\begin{pmatrix}2\\3\end{pmatrix}$
+    * $\begin{pmatrix}27\\64\end{pmatrix} + \begin{pmatrix}14\\16\end{pmatrix}$
+  * calculate the scalar product of $\begin{pmatrix}1\\1\\2\end{pmatrix}$ and $\begin{pmatrix}4\\2\\3\end{pmatrix}$. How can you realize it in a simple form with the known commands?
+  * `rnorm(n)` gives a vector with a normal distribution with mean 0 and standard deviation 1 of length n, how to get a normal distribution centered around 5 and standard deviation 0.5?
+
+# Matrices
+
+A matrix is the 2 dimensional equivalent of a vector.
+```{r}
+matrix(1:9, 3, 3)
+matrix(1:12, 3, 4)
+matrix(1:12, ncol = 3, nrow = 4)
+matrix(c(1, 1, 2, 2), ncol = 2, byrow = TRUE)
+matrix(c("a", "b", "c", "d"), 2, 2)
+```
+
+## Indexing matrices
+`[` can have as many arguments as there are dimensions (and more named arguments)
+
+```{r}
+x <- matrix(1:9, 3, 3)
+x[2] # index as if it was a vector
+x[1, 2] # rows, columns
+x[1:2, 1:2] # submatrix
+x[c(1, 1, 1, 2, 2, 2)]  # index several elements at once
+x[1, ] # one row as vector
+x[, 1] # one column as vector
+x[1, , drop = FALSE] # one row as submatrix
+x[, 1, drop = FALSE] # one column as submatrix
+```
+Not setting `drop = TRUE` by default is one of the biggest errors of the makers
+of `R`.
+
+**Exercise**:
+
+  * try and interprete:
+    * `matrix(1:9, 3, 3) + c(1, 2, 3)`
+  * What happens here? `matrix(1:12, ncol = 3, nrow = 4) + c(1, 2, 3)`
+    * Tip: try `1:12+c(1, 2, 3)` as comparison
+  * Perform some calculations with the matrix-product: `%*%`
+    * e.g.: `matrix(1:4,2,2) %*% matrix(5:8,2,2)`
+    * what is the difference of a matrix product of vectors and the scalar product in R?
+
+# Arrays
+Vectors: 1 dimension, Matrix: 2 dimensions, Arrays: n dimensions
+```{r}
+array(1:8, dim = c(2, 2, 2))
+```
+
+## Indexing arrays
+
+Works exactly like indexing `matrix` but with more arguments.
+
+```{r, eval = TRUE}
+x <- array(1:27, dim = c(3, 3, 3))
+x[1:3] # index as a vector
+x[1:2, 1:2, 1:2] # subarray
+x[1, , ] # submatrix
+x[1, , , drop = FALSE] # subarray
+x[1, 1, ] # subvector
+matrix(c(1, 1, 1,
+              2, 2, 2),
+            ncol = 3,
+            byrow = TRUE)
+```
+**Exercise**:
+
+  * Name 2 examples, where such high dimensional arrays could be useful.
+
+# Lists
+
+Vectors, matrices, arrays: **all elements have the same type!** (Also they are called fields sometimes)
+
+List: each element can be any R object.
+
+An unnamed list:
+```{r}
+list(1, "a", 1:2)
+```
+
+A named list:
+```{r}
+list(a = 1:3, b = letters[1:5], c = sum)
+```
+
+Named matrices need lists
+```{r}
+y <- matrix(1:4, 2, 2, dimnames = list(c("r1", "r2"), c("c1", "c2")))
+y
+y["r1", "c2"]
+```
+
+**Exercise**:
+
+  * What is `letters` and `LETTERS`? Try to find out.
+
+## Named lists
+
+```{r}
+x <- list(a = 1, b = 1:3, c = "a")
+x$a # element
+x[["a"]] # element
+x["a"] # subset
+x[c("a", "b")] # subset
+```
+
+## Assignment of lists
+```{r}
+x <- list(a = 1, b = 2, c = 3)
+x$d <- 4
+x[["e"]] <- 5
+x$a <- NULL # delete element
+x[["b"]] <- NULL
+x
+```
+
+# Logical indexing
+```{r}
+x <- seq(0, 1, length.out = 11)
+x < 0.5 # works elementwise
+x[x < 0.5]
+
+y <- matrix(1:9, 3, 3)
+lower.tri(y)
+y[lower.tri(y)]
+```
+
+# Packages
+
+You can install new packages with
+`install.packages(package_name)`
+(packages should be installed in the pool already)
+
+Install the following packages:
+
+* `ggplot2`
+* `dplyr`
+* `data.table`
+* `raster`
+* `xlsx`
+
+Alternative: Use the *Packages* tab in RStudio
+
+Load a package by using:
+```{r, eval = FALSE}
+library(ggplot2)
+```
+
+# Data frames
+## Spreadsheets in R
+
+```{r}
+df1 <- data.frame(species = c("A", "A", "B", "C", "A"),
+                  density = c(0.1, 0.2, 0.3, 0.5, 0.7),
+                  count = c(24, 20, 18, 3, 10))
+```
+
+* Standard way of storing data (Also in Matlab, Python, Julia, ...).
+* A set of lists where each element is a vector with the same length.
+* Each column can have a different type
+
+```{r}
+summary(df1) # statistical values
+str(df1) # some peek into the dataset
+```
+
+## Data frames indexing
+### Subsetting columns
+
+```{r}
+df1$species
+df1[["species"]]
+df1[, "species"]
+```
+```{r}
+df1["species"]
+```
+
+### Subsetting rows
+
+```{r}
+df1[df1$species == "A", ]
+df1[df1$species == "F", ]
+df1[df1$count == 10, "species"]
+```
+
+## datasets
+One of the most important datasets for simple tasks is the iris dataset.
+
+![image of the flowers](iris-machinelearning.png)
+
+```{r}
+library(datasets)
+data(iris)
+iris
+```
