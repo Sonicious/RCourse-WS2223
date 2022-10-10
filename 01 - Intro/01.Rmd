@@ -188,14 +188,9 @@ c(2, 2) * c(4, 5) # element-wise multiplication (Hadamard product)
 
   * Calculate:
     * $4\left(\matrix{2\\ 3}\right)$
-    * $\left(\matrix{27\\ 64}\right) + \pmatrix{14\\ 16}$
+    * $\left(\matrix{27\\ 64}\right) + \pmatrix{14\\\\ 16}$
   * calculate the scalar product of $\pmatrix{1\\ 1\\ 2}$ and $\pmatrix{4\\ 2\\ 3}$. How can you realize it in a simple form with the known commands?
   * `rnorm(n)` gives a vector with a normal distribution with mean 0 and standard deviation 1 of length n, how to get a normal distribution centered around 5 and standard deviation 0.5?
-
-  $$ {\left\lbrack \matrix{2 & 3 \cr 4 & 5} \right\rbrack} 
-* \left\lbrack \matrix{1 & 0 \cr 0 & 1} \right\rbrack
-= \left\lbrack \matrix{2 & 3 \cr 4 & 5} \right\rbrack
-$$
 
 # Matrices
 
