@@ -1,6 +1,5 @@
 ---
-title: "Lesson 02"
-output: [github_document, html_document]
+output: github_document
 ---
 
 # Programming in R

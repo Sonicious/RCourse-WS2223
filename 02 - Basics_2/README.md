@@ -1,5 +1,3 @@
-Lesson 02
-================
 
 # Programming in R
 
@@ -324,7 +322,7 @@ while (number <- sample(1:10, 1)) {
 }
 ```
 
-    ## [1] "Found number 5 after 2 Iterations: "
+    ## [1] "Found number 5 after 9 Iterations: "
 
 ``` r
 x <- 1:5
@@ -450,4 +448,4 @@ $$F_0 = 0,\qquad F_1 = 1,\qquad F_n = F_{n-1} + F_{n-2}$$
   ```
 
       ##        User      System verstrichen 
-      ##        0.29        0.00        0.32
+      ##        0.35        0.00        0.36
