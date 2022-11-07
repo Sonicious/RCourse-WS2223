@@ -1,5 +1,3 @@
-Lesson 01
-================
 
 # The *read evaluate print loop* (REPL)
 
@@ -69,16 +67,14 @@ sentence
 ls() # list all variables
 ```
 
-    ##  [1] "a"         "age_days"  "age_years" "b"         "cc"        "d"        
-    ##  [7] "df1"       "iris"      "sentence"  "x"         "y"
+    ## [1] "age_days"  "age_years" "sentence"
 
 ``` r
 rm("age_days") # remove variable
 ls()
 ```
 
-    ##  [1] "a"         "age_years" "b"         "cc"        "d"         "df1"      
-    ##  [7] "iris"      "sentence"  "x"         "y"
+    ## [1] "age_years" "sentence"
 
 ``` r
 rm(list = ls()) # clear workspace

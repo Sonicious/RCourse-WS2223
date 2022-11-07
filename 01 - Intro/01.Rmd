@@ -1,6 +1,5 @@
 ---
-title: "Lesson 01"
-output: [github_document, html_document]
+output: github_document
 ---
 
 # The *read evaluate print loop* (REPL)
