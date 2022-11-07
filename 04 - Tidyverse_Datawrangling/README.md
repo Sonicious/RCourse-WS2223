@@ -1,6 +1,3 @@
-Lesson 04
-================
-Martin Reinhardt
 
 # Data Wrangling
 
@@ -33,9 +30,7 @@ it later and the download takes some time:
 There are many data formats for table data:
 
 - Tabular text formats: CSV (.csv), TSV (.tsv), Table (.data) and more
-
 - Spreadsheet formats: Excel (.xls, .xlsx), Open Document (.ods)
-
 - other formats: JSON (.json), Stata files (.dta), SPSS data (.sav,
   .zsav, .por)
 
@@ -140,7 +135,7 @@ iris %>%
   geom_point(aes(color = Species, shape = Species))
 ```
 
-![](lesson04_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](04_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ### Working Directory
 
@@ -368,10 +363,11 @@ data %>%
     ## 10          4.9         3.1          1.5         0.1 setosa  TRUE 
     ## # … with 140 more rows
 
-**Exercise** \* Create a tibble with Sepal leave data only, but numbers
-are in inches \* Create a tibble, with an additional column
-`bigger than mean`, which shows if a Sepal leave is wider than the mean
-value
+**Exercise**
+
+- Create a tibble with Sepal leave data only, but numbers are in inches
+- Create a tibble, with an additional column `bigger than mean`, which
+  shows if a Sepal leave is wider than the mean value
 
 ### Filtering
 
@@ -447,11 +443,13 @@ data %>%
     ## 10          1.5         0.1
     ## # … with 40 more rows
 
-**Exercise** \* Create a tibble where you just show the individuals,
-where the Sepal width is bigger than the mean \* Create a tibble where
-all Versicolor species are listed which have a Petal length between 4
-and 5. Use the command `between` for this. \* Create a tibble with
-Species and Sepal length only
+**Exercise**
+
+- Create a tibble where you just show the individuals, where the Sepal
+  width is bigger than the mean
+- Create a tibble where all Versicolor species are listed which have a
+  Petal length between 4 and 5. Use the command `between` for this.
+- Create a tibble with Species and Sepal length only
 
 ### Grouping
 
@@ -496,10 +494,12 @@ data %>%
   geom_bar(aes(x=Species))
 ```
 
-![](lesson04_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](04_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
-**Exercise** Try to explain in your own words, which information the
-following table holds
+**Exercise**
+
+Try to explain in your own words, which information the following table
+holds
 
 ``` r
 data %>%
@@ -618,9 +618,7 @@ descriptions[1:3,]
 ```
 
 - What are the dimensions of the WDI?
-
 - How could we pivot the data?
-
 - How is the following data managed?
 
 ``` r
@@ -654,7 +652,7 @@ wdi_data_piv
     ## #   NY.ADJ.DRES.GN.ZS <dbl>, NY.ADJ.DFOR.GN.ZS <dbl>, NY.ADJ.NNAT.GN.ZS <dbl>,
     ## #   NY.ADJ.DPEM.GN.ZS <dbl>, SP.ADO.TFRT <dbl>, SP.POP.DPND <dbl>, …
 
-- What is this exact number?
+- What does this number mean?
 
 ``` r
 wdi_data_piv %>%

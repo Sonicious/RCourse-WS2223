@@ -1,0 +1,333 @@
+---
+output: github_document
+---
+
+# Data Wrangling
+
+Todays topics:
+
+* Dealing with NaN and missing
+* Scaling Data
+* Data Wrangling with real Data sets
+
+Important Note: We start to use bigger and realistic datasets now which might cost more computer hardware than expected. You should get your access to the scientific computing: [SC Uni Leipzig](https://www.urz.uni-leipzig.de/unsere-services/services-fuer-forschende/einstieg-ins-wissenschaftliche-rechnen). A modern laptop with some GB of RAM should still be enough to run everything anyways.
+
+## Topic overview
+
+![](data-science-wrangle.png)
+
+## Importing Data
+
+The task of importing data is the first when it comes to Data Processing. Please download the CSV data before continuing. We will need it later and the download takes some time: [Data](https://datacatalog.worldbank.org/dataset/world-development-indicators)
+
+### Data formats
+
+There are many data formats for table data:
+
+* Tabular text formats: CSV (.csv), TSV (.tsv), Table (.data) and more
+* Spreadsheet formats: Excel (.xls, .xlsx), Open Document (.ods)
+* other formats: JSON (.json), Stata files (.dta), SPSS data (.sav, .zsav, .por)
+
+They each have advantages and disadvantages. To encourage platform independence, we will stick with simple CSV data for all our projects.
+
+Additional to these file formats, data can also be imported by public data APIs. These are getting data through the internet on demand. Most of these APIs are packaged in R packages.
+
+In the [Tidyverse](https://www.tidyverse.org/) the according package for reading files is called [readr](https://readr.tidyverse.org/). Don't forget to load the library.
+
+```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+```
+
+### Interlude: Symbols, values, missing values
+
+```{r}
+x <- 1
+x <- list(a = 1)
+```
+
+* `x` and `a` is a variable names or symbols.
+* `1` is a value.
+* `<-` is the assignment operator and assings a value to a symbol
+* `x <- 1` is called an expression
+
+Look in `?make.names` for valid variable names. `Human Development Index` is not a valid variable name because it contains spaces. You can still create symbols with that name using back ticks.
+
+```{r}
+x <- list(a = 1, `Human Development Index` = 2)
+x$`hello world` <- 3
+```
+
+Often `"..."` can be used instead but not always.
+
+R has a special value for missings: `NA` (Don't mix it up with `NaN`)
+
+```{r}
+x <- c(1, 2, 3, NA)
+2 * x
+```
+
+`NA` propagates through calculations. Some functions have an option to remove missings
+
+```{r}
+mean(x)
+mean(x, na.rm = TRUE)
+```
+
+This feature is not very spread among other programming languages. Therefore, some formats are using specific values which are later interpreted as `NA`s (Example: -9999)
+
+### Interlude: Piping (Tidyverse)
+
+`x %>% f` is equivalent to `f(x)`
+
+So instead of `f(g(h(x)))` or
+
+```{r, eval = FALSE}
+h_x <- h(x)
+gh_x <- g(h_x)
+fgh_x <- f(gh_x)
+```
+
+we can write `x %>% h %>% g %>% f`. This makes long chains of commands more readable but can also be hard to debug.
+
+`x %>% f(3)` is equivalent to `f(x, 3)` and `x %>% f(3, .)` is equivalent to `f(3, x)`.
+
+Arbitrary expression can also be used: `x %>% {. + 4}`
+
+Especially in scripts or later R Markdown files, this technique makes reading code much easier and structuring the source is easier. This also improves maintainability.
+
+A nice real Example: converting the iris data set to a tibble and plot it:
+
+```{r}
+iris %>%
+  tibble %>% 
+  ggplot(aes(x = Petal.Length, y = Petal.Width)) +
+  geom_point(aes(color = Species, shape = Species))
+```
+
+### Working Directory
+
+To access data without giving the full path, but a relative path, it is useful to set the working directory:
+
+```{r, eval=FALSE}
+setwd("D:/RCourse_WS22/Lesson_04")
+```
+
+You can check the actual working directory with `getwd()`. When using paths, please use slashes `/`and no backslashes `\`. Otherwise you might run into problems.
+
+
+### Data import with `readr`
+
+The data is downloaded and can now be loaded into R. Unzipping is done in our pipe. But we should check the contents of the archive `WDIData.csv`:
+
+* `WDIData.csv` contains the main data table.
+* `WDISeries.csv` contains more information on the single indicators.
+* `WDICountry.csv` contains more information on the countries and regions.
+
+While the classic `read.csv` reads to a `data.frame` we want to use `tibble` for our data. So we can use the tidyverse version of the function, called `read_csv`. This function even handles small non-standard things in a CSV file.
+
+The function `unz` can decompress the zip-archive on the fly while reading.
+
+first save the location of the file according to your own computer and then you can import the data.
+
+```{r}
+filename = "../Data/WDI_csv.zip"
+```
+
+```{r}
+wdi_data <- 
+  filename %>%
+  unz("WDIData.csv" ) %>%
+  read_csv
+head(wdi_data)
+```
+
+The country data and data on variables should also be read into R:
+
+```{r}
+wdi_country <- 
+  filename %>%
+  unz("WDICountry.csv" ) %>%
+  read_csv
+head(wdi_country)
+```
+
+```{r}
+wdi_series <- 
+  filename %>%
+  unz("WDISeries.csv" ) %>%
+  read_csv
+head(wdi_series)
+```
+
+All important data parts are now loaded and can be dealt with.
+
+## Tidying data
+
+This step will be discussed in a later class
+
+## Transform, filter and grouping data 
+
+We will step back to the iris data set to explain, what happens with the following commands because the data is simpler. Getting to know the data is usually a time-consuming step.
+
+```{r}
+data <- iris %>% tibble
+```
+
+### Create, modify and delete columns
+
+`mutate` is the command to deal with whole column operations. You can easily add or delete columns
+
+```{r}
+data %>%
+  mutate(Genus = "Iris data set", Sepal.Length = NULL)
+```
+
+Additionally it is possible to create new columns or modify them:
+
+```{r}
+data %>% 
+  mutate(isbig = Sepal.Length > 4)
+```
+**Exercise**
+
+* Create a tibble with Sepal leave data only, but numbers are in inches
+* Create a tibble, with an additional column `bigger than mean`, which shows if a Sepal leave is wider than the mean value
+
+### Filtering
+
+`filter`is the command to filter data
+
+```{r}
+data %>%
+  filter(Species == "virginica")
+```
+Here you really need to pay attention about the datatype. Also it is important ot use the comparison `==` and not the simple equality sign `=`
+
+Another suitable function is `select` which concentrates the output to specific coloums:
+```{r}
+data %>%
+  select(Petal.Length)
+```
+
+Both together can be used to limit the output:
+```{r}
+data %>%
+  filter(Species == "setosa") %>%
+  select(Petal.Length, Petal.Width)
+```
+
+**Exercise**
+
+* Create a tibble where you just show the individuals, where the Sepal width is bigger than the mean
+* Create a tibble where all Versicolor species are listed which have a Petal length between 4 and 5. Use the command `between` for this.
+* Create a tibble with Species and Sepal length only
+
+### Grouping
+
+Grouping is a process in the middle of the pipeline which is used by further commands later in the pipe. It is a good technique to get initial ideas for further computations or tests.
+
+```{r}
+data %>%
+  group_by(Species) %>%
+  summarize_all(mean)
+```
+
+You can also use other methods:
+```{r}
+data %>%
+  group_by(Species) %>%
+  count
+```
+```{r}
+data %>%
+  group_by(Species) %>%
+  count %>%
+  ggplot() +
+  geom_bar(aes(x=Species))
+```
+
+**Exercise**
+
+Try to explain in your own words, which information the following table holds
+```{r}
+data %>%
+  group_by(Petal.Length>mean(Petal.Length)) %>%
+  summarise(mean(Sepal.Length))
+```
+
+### Pivoting
+
+Pivot tables are a special version of grouped tables. They allow fast exploration of big data sets. Pivot tables don't have an individual view, but more an overview of the data.
+
+The `iris` dataset has two dimensions: `Traits` and `Species`. What are the
+different ways that we can represent this in tabular form?
+
+```{r}
+mean_data <- data %>%
+  group_by(Species) %>%
+  summarize_all(mean)
+mean_data
+```
+
+pivoting longer means you spread the table to more variables. Pivoting wider means you stretch the number of columns but reduce the number of rows.
+
+```{r}
+mean_data %>%
+  pivot_longer(Sepal.Length:Petal.Width, names_to = "Trait")
+```
+You can also concentrate on a special column with `pivot_longer(!Species, names_to = "Trait")`
+
+```{r}
+mean_data %>%
+  pivot_wider(names_from = "Species", values_from = !Species)
+```
+
+With both functions combined it is possible to create nice overviews:
+
+```{r}
+mean_data %>%
+  pivot_longer(!Species, names_to = "Trait") %>%
+  pivot_wider(id_cols = "Trait", names_from = "Species")
+```
+
+## Exercise
+
+Explore the WDI data!
+
+Some helpers for the start:
+```{r, eval =FALSE}
+glimpse()
+head()
+
+wdi_series %>%
+  select(`Series Code`, `Indicator Name`)
+
+wdi_series %>%
+  filter(str_detect(`Indicator Name`, "Population density")) %>%
+  { .$`Long definition` }
+
+descriptions <- wdi_series %>% select(`Series Code`, `Indicator Name`, `Long definition`)
+descriptions[1:3,]
+```
+
+* What are the dimensions of the WDI?
+* How could we pivot the data?
+* How is the following data managed?
+
+```{r}
+wdi_data_piv <- wdi_data %>%
+  pivot_longer(`1960`:`2020`,
+               names_to = "Year",
+               values_drop_na = TRUE) %>%
+  mutate(Year = as.integer(Year)) %>%
+  pivot_wider(id_cols = c("Country Code", "Year"), names_from = "Indicator Code")
+wdi_data_piv
+```
+
+* What does this number mean?
+```{r}
+wdi_data_piv %>%
+  select(`Country Code`, Year, NY.ADJ.NNTY.PC.KD) %>%
+  filter(`Country Code` == "DEU" & Year == 2010)
+```
+
