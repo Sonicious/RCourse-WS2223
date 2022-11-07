@@ -1,5 +1,3 @@
-Lesson 03
-================
 
 # Simple Data Exploration
 
@@ -123,7 +121,7 @@ plot(
 )
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 #### ggplot
 
@@ -132,7 +130,7 @@ plot(
 ggplot(data = iris)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 # map data to x and y coordinates
@@ -140,7 +138,7 @@ ggplot(data = iris) +
     aes(x = Petal.Length, y = Petal.Width)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 These “Aesthetic” mappings can be put directly into the commands:
 
@@ -150,7 +148,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
     geom_point()
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 # change color & symbol type
@@ -158,7 +156,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
     geom_point(aes(color = Species, shape = Species))
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 The data seems to follow a linear model when all species are considered.
 We want to ignore the proper tests this time and just get the R-value:
@@ -196,7 +194,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](lesson03_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 # add annotation text to a specified location by setting coordinates x = , y =
@@ -208,7 +206,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](lesson03_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 #### Exercise
 
@@ -229,7 +227,7 @@ boxplot(Sepal.Length ~ Species,
 )
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 #### ggplot
 
@@ -239,7 +237,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, color = Species)) +
     geom_boxplot()
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 # add notch and specify color
@@ -247,7 +245,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, color = Species)) +
     geom_boxplot(notch = TRUE, color = "black", aes(fill = Species))
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 # add a small amount of points to the plot
@@ -256,7 +254,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, color = Species)) +
     geom_jitter()
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 # reduce the noise of jittered points
@@ -265,7 +263,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, color = Species)) +
     geom_jitter(position = position_jitter(0.2))
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 # use violin diagram
@@ -273,7 +271,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, color = Species)) +
     geom_violin()
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 # add a small wrapped boxplot
@@ -282,7 +280,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, color = Species)) +
     geom_boxplot(width = 0.2)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 # switch to filled plots globally
@@ -291,7 +289,7 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
     geom_boxplot(width = 0.2)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 #### Exercise
 
@@ -307,7 +305,7 @@ have no species specific coloring.
 hist(iris$Sepal.Width, breaks = 12)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 #### ggplot
 
@@ -320,7 +318,7 @@ ggplot(data = iris, aes(x = Sepal.Width)) +
     geom_histogram(binwidth = 0.2)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 # add more information about the underlying data with stacking
@@ -331,7 +329,7 @@ ggplot(data = iris, aes(x = Sepal.Width)) +
     )
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 # Another option is to use overlayed histograms with an alpha value
@@ -342,7 +340,7 @@ ggplot(data = iris, aes(x = Sepal.Width)) +
     )
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 When there is a huge amount of datapoints, a frequency plot is better
 for comparisons.
@@ -352,14 +350,14 @@ ggplot(data = iris, aes(x = Sepal.Width)) +
     geom_freqpoly(binwidth = 0.1)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 ggplot(data = iris, aes(x = Sepal.Width, color = Species)) +
     geom_freqpoly(binwidth = 0.1)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 Another sibling of the histogram is the density plot. It specifies even
 more on big datasets
@@ -369,7 +367,7 @@ ggplot(data = iris, aes(x = Sepal.Width, fill = Species)) +
     geom_density(alpha = 0.3)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 When you want to combine density plots and histograms, you need to use
 `aes(y = ..density..)` to use the correct scaling of the data. We will
@@ -384,7 +382,7 @@ ggplot(data = iris, aes(x = Sepal.Width, fill = Species)) +
     geom_density(alpha = 0.3)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 #### Exercise
 
@@ -409,7 +407,7 @@ data <- tibble(
 barplot(height = data$value)
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 #### ggplot
 
@@ -419,7 +417,7 @@ ggplot(data = data, aes(x = group, y = value)) +
     geom_bar(stat = "identity")
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 ``` r
 # basic pie chart
@@ -428,10 +426,10 @@ ggplot(data, aes(x = "", y = value, fill = group)) +
     coord_polar("y", start = 0) # This is actually the key point
 ```
 
-![](lesson03_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](03_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 We will have a closer look on other plots in the future. But first we
-need to get into data wrangling on more complex datasets
+need to get into data wrangling on more complex data sets
 
 ## Exercise
 

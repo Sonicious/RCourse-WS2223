@@ -1,6 +1,5 @@
 ---
-title: "Lesson 03"
-output: [github_document, html_document]
+output: github_document
 ---
 
 # Simple Data Exploration
@@ -287,7 +286,7 @@ ggplot(data, aes(x = "", y = value, fill = group)) +
     coord_polar("y", start = 0) # This is actually the key point
 ```
 
-We will have a closer look on other plots in the future. But first we need to get into data wrangling on more complex datasets
+We will have a closer look on other plots in the future. But first we need to get into data wrangling on more complex data sets
 
 ## Exercise
 
