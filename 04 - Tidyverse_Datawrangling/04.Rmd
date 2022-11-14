@@ -316,7 +316,7 @@ descriptions[1:3,]
 
 ```{r}
 wdi_data_piv <- wdi_data %>%
-  pivot_longer(`1960`:`2020`,
+  pivot_longer(`1960`:`2021`,
                names_to = "Year",
                values_drop_na = TRUE) %>%
   mutate(Year = as.integer(Year)) %>%
