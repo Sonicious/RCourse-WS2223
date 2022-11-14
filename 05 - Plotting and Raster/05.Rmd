@@ -1,0 +1,247 @@
+---
+output: github_document
+---
+
+# Data Exploring and Plotting II
+
+Todays topics:
+
+* Recap of pivoting and data exploration
+* Plotting WDI data with polygons
+
+## Topic Overview
+
+Today we want to dig deeper into the general topic of exploration of data which is the combination of transforming data and visualize them.
+
+![](data-science-explore.png)
+
+We want to work with the WDI data again and plot them on a world map. Therefore please load the data as we did in the last class. We will need `wdi_data`, `wdi_country` and `wdi_series`. Please load the according tidyverse package as well.
+Also note the `mutate` lines, which removes columns which were added through parsing errors.
+
+```{r}
+library(tidyverse)
+filename = "../Data/WDI_csv.zip"
+wdi_data <- 
+  filename %>%
+  unz("WDIData.csv" ) %>%
+  read_csv %>%
+  mutate(...67 = NULL)
+wdi_country <- 
+  filename %>%
+  unz("WDICountry.csv" ) %>%
+  read_csv %>%
+  mutate(...31 = NULL)
+wdi_series <- 
+  filename %>%
+  unz("WDISeries.csv" ) %>%
+  read_csv %>%
+  mutate(...21 = NULL)
+```
+
+## Recap: Transform and Manage data
+
+It is important to understand the tables before working with them. Therefore we have a look at all columns:
+
+```{r}
+colnames(wdi_data)
+```
+
+To properly pivot the data into any dimension, we first make one long table. Moving into this direction is called `pivoting longer` in R.
+
+```{r}
+wdi_data_piv_long <- wdi_data %>%
+  pivot_longer(`1960`:`2021`,
+               names_to = "Year",
+               values_drop_na = TRUE) %>%
+  mutate(Year = as.integer(Year))
+```
+
+Dimensions of the data: Country, Indicator, Year
+
+To pivot wide again, `pivot_wider` gives the possibility to extend the table again according to the data. In our case we are mainly interested to access the data by country and year.
+
+```{r}
+wdi_data_piv <- wdi_data_piv_long %>%
+  pivot_wider(id_cols = c("Country Code", "Year"), names_from = "Indicator Code")
+```
+
+This pivoted data is now tidy for exploration and plotting. First we want to find a nice indicator in the data to dive deeper into.
+
+```{r}
+print(wdi_data %>%
+  select(`Indicator Code`, `Indicator Name`) %>%
+  filter(str_detect(`Indicator Name`, "CO2 emissions")), n=30)
+```
+
+To get along better with such big tables which are about exploring, sometimes it's easier to organise descriptions. Even better is a full description from `wdi_series`. here we have to merge the tables before. Because there is no full description for every Code, we will use a left join. We will save the data in case we want to look at it from another program.
+
+```{r}
+description1 <- wdi_data %>% select(`Indicator Code`, `Indicator Name`) %>% unique
+description2 <- wdi_series %>% select(`Series Code`, `Long definition`) %>% unique
+description <- left_join(description1, description2, by = c("Indicator Code" = "Series Code"))
+write_csv(description, "DataDescription.csv")
+```
+
+Now we can explore the description table easier and look for CO2 emissions in kt:
+
+```{r}
+description %>%
+  filter(str_detect(`Indicator Name`, "CO2 emissions")&str_detect(`Indicator Name`, "kt"))
+```
+
+
+We are interested in total CO2 emissions in kt. Therefore we will pick the first entry save the according code:
+
+```{r}
+chosenCode <- description %>%
+  filter(str_detect(`Indicator Name`, "CO2 emissions")&str_detect(`Indicator Name`, "kt")) %>%
+  select(`Indicator Code`) %>%
+  .[[1,1]]
+```
+
+The saved code `r chosenCode` we now use to get more information
+
+```{r}
+description %>%
+  filter(`Indicator Code` == chosenCode) %>%
+  select(`Long definition`) %>%
+  .[[1]]
+```
+
+We can also explore the pivot table in detail now:
+
+```{r}
+wdi_data_piv %>%
+  filter(`Country Code` == "DEU") %>%
+  select(`Country Code`, Year, chosenCode)
+```
+
+Sometimes it is easier for further plotting to rename the axes:
+
+```{r}
+wdi_data_piv %>%
+  filter(`Country Code` == "DEU") %>%
+  select(Year, chosenCode) %>%
+  rename("Value" = chosenCode)
+```
+
+
+### Exercise
+
+Explore the data find a time series which is interesting to you. Plot the time series and annotate the axes.
+
+```{r}
+wdi_data_piv %>%
+  filter(`Country Code` == "DEU") %>%
+  select(Year, chosenCode) %>%
+  drop_na() %>%
+  rename("Value" = chosenCode) %>%
+  ggplot +
+  aes(x = Year, y = Value) + 
+  geom_line() +
+  labs(y = "CO emissions in kt") +
+  labs(title = "CO 2 emissions in Germany")
+```
+An alternative is to use `.data[[chosenCode]]` in `aes` except of renaming:
+```{r}
+wdi_data_piv %>%
+  filter(`Country Code` == "DEU") %>%
+  select(Year, chosenCode) %>%
+  drop_na() %>%
+  ggplot +
+  aes(x = Year, y = .data[[chosenCode]]) + 
+  geom_line() +
+  labs(y = "CO emissions in kt") +
+  labs(title = "CO 2 emissions in Germany")
+```
+
+
+
+## Plotting on map: Polygons
+
+Next to the table data is would be nice to get a broader overview. For this we will need the following library loads:
+
+```{r}
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+```
+
+Here we will load the according positions of countries.
+
+```{r}
+countries_sf <- ne_countries(returnclass = "sf")
+```
+
+The `sf` data is a kind of data.frame with specific annotations to plot features of countries. This enables the possibility to plot the world map with the countries.
+
+```{r}
+countries_sf %>% ggplot + geom_sf()
+```
+
+To plot the WDI data into this map, we will have a look at the `wdi_countries` data more detailed. It is suitable to merge the data from the table to the `wdi_data` pivot table along the country codes.
+
+```{r}
+colnames(wdi_country)
+```
+
+```{r}
+wdi_data_extra <- wdi_country %>%
+  select(`Country Code`, `Short Name`, Region, `Income Group`,
+         `System of trade`, `Government Accounting concept`) %>%
+  full_join(wdi_data_piv, by="Country Code")
+```
+
+To plot these data according with the `sf_countries`, we need to add the pivot table as features to the `countries_sf` data. We will use an `inner_join` to be sure there will be no wrong data. For pure overviews and to grab a genereal idea of the data and plots, this is absolutely ok. If you want to publish articles, you should be more specific here.
+
+```{r}
+wdi_data_extra_sf <- inner_join(countries_sf, wdi_data_extra,
+                                by = c("iso_a3" = "Country Code"))
+```
+
+The final data `wdi_data_extra_sf` is the final result for data wrangling and ready to plot all kinds of features on a world map:
+
+```{r}
+wdi_data_extra_sf %>%
+  filter(Year == 2010) %>%
+  ggplot +
+  aes(fill = .data[[chosenCode]]) +
+  geom_sf()
+```
+
+###Exercises
+
+* read the help page `?dplyr::join`. What are the differences between `full_join`, `inner_join`, etc.
+* `mutate` also supports creating and modifying columns. Calculate the nuclear and renewable power consumption per capita in 2019. Save the values in a new column and create a map from the results. Hint: Electric power consumption per capita and percentage of nuclear/renewable electricity.
+* You have seen `group_by` and `summarize` in the `iris` example. Calculate the mean per capita income per region and decade. Hint: Adjusted net national income per capita, How can you get the decade programatically?
+
+```{r, include = FALSE}
+# maps:
+wdi_data_extra_sf %>%
+  mutate(nucl_pcap = EG.USE.ELEC.KH.PC * EG.ELC.NUCL.ZS / 100) %>%
+  filter(Year == 2019) %>%
+  ggplot() +
+  aes(fill = nucl_pcap) %>%
+  geom_sf()
+
+wdi_data_extra_sf %>%
+  mutate(rnew_pcap = EG.USE.ELEC.KH.PC * EG.ELC.RNEW.ZS / 100) %>%
+  filter(Year == 2019) %>%
+  ggplot() +
+  aes(fill = rnew_pcap) %>%
+  geom_sf()
+
+# income calculations:
+description %>%
+    filter(str_detect(`Indicator Name`, "Adjusted net national income per capita")) %>% .[3,]
+IncomeCode <- description %>%
+    filter(str_detect(`Indicator Name`, "Adjusted net national income per capita")) %>% .[[3,1]]
+wdi_data_extra %>% 
+  select("Region", "Year", .data[[IncomeCode]]) %>%
+  filter(!is.na(`Region`)) %>%
+  filter(!is.na(.data[[IncomeCode]])) %>%
+  mutate(Decade = floor(Year/10)*10) %>%
+  filter(!is.na(`Region`)) %>%
+  group_by(Region, Decade) %>% 
+  summarise(Income = mean(.data[[IncomeCode]], na.rm = TRUE))
+```
