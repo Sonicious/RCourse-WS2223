@@ -209,7 +209,7 @@ wdi_data_extra_sf %>%
   geom_sf()
 ```
 
-###Exercises
+### Exercises
 
 * read the help page `?dplyr::join`. What are the differences between `full_join`, `inner_join`, etc.
 * `mutate` also supports creating and modifying columns. Calculate the nuclear and renewable power consumption per capita in 2019. Save the values in a new column and create a map from the results. Hint: Electric power consumption per capita and percentage of nuclear/renewable electricity.
