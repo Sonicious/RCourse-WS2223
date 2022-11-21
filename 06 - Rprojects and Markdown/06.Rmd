@@ -19,7 +19,8 @@ Today we want to explore ways to communicate findings from scientific results. S
 
 The communication attempt should be combined with a possibility to bring data, scripts, workflows and final reports together in one solution. This is called an R project.
 
-A nice directory structure for data driven projects is https://www.r-bloggers.com/2018/08/structuring-r-projects/
+A nice directory structure for data driven projects is:
+
 ```
 .
 └── AwesomeProject
@@ -71,7 +72,9 @@ In many projects, there exist a script which runs all analysis scripts and plott
 Markdown is a way to prototype text fast and render it to different outputs. A minimal set of patterns make this possible and is used in broad areas all over the internet. Additional there is R markdown. with `.Rmd` files. These combine R scripts and Markdown to generate nice reports ready to publish. You can even create nice slides or homepages. The speciality of R Markdown is, that you can include R commands which are executed prior to the markdown itself.
 
 ![](Rmarkdown_workflow.png)
+
 Download the sample file `Example.Rmd` for a better understanding, what is possible. You can render the file with
+
 ```
 library(rmarkdown)
 render("Example.Rmd")

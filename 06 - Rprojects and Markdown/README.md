@@ -19,8 +19,7 @@ The communication attempt should be combined with a possibility to bring
 data, scripts, workflows and final reports together in one solution.
 This is called an R project.
 
-A nice directory structure for data driven projects is
-<https://www.r-bloggers.com/2018/08/structuring-r-projects/>
+A nice directory structure for data driven projects is:
 
     .
     └── AwesomeProject
@@ -101,8 +100,10 @@ reports ready to publish. You can even create nice slides or homepages.
 The speciality of R Markdown is, that you can include R commands which
 are executed prior to the markdown itself.
 
-![](Rmarkdown_workflow.png) Download the sample file `Example.Rmd` for a
-better understanding, what is possible. You can render the file with
+![](Rmarkdown_workflow.png)
+
+Download the sample file `Example.Rmd` for a better understanding, what
+is possible. You can render the file with
 
     library(rmarkdown)
     render("Example.Rmd")
