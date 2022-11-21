@@ -1,0 +1,136 @@
+---
+title: "Example Document"
+subtitle: "This is an example"
+author: "Martin Reinhardt"
+output: pdf_document
+---
+
+# Hello R World 
+
+## Introduction
+
+This is a very short document, which will show you everything which is possible with R Markdown.
+
+## General Markdown syntax
+
+* Headline:
+  ```
+  # Headline level 1
+  ## Headline level 2
+  ### Headline level 3
+  #### Headline level 4
+  ```
+* *italics* `*italics*`
+* _italics_ `_italics_`
+* **bold** `**bold**`
+* Sub~script~ `Sub~script~`
+* Super^script^ `Super^script^`
+* `inline code` 
+  ```
+  `inline code`
+  ```
+* [hyperlink](https://duckduckgo.com) `[hyperlink](https://duckduckgo.com)`
+* <img src="https://cran.r-project.org/Rlogo.svg" style="height:18pt"> `![image](https://cran.r-project.org/Rlogo.svg)`
+
+```
+- list item 1
+- list item 2
+
+* list item 3
+* list item 4
+```
+
+- list item 1
+- list item 2
+
+* list item 3
+* list item 4
+
+```
+1. Numbered list item 1
+1. Numbered list item 2
+```
+
+1. Numbered list item 1
+1. Numbered list item 2
+
+Math uses LaTeX notation:
+
+```
+$$f(x) = x^2$$
+```
+
+$$f(x) = x^2 + c$$
+
+use html/latex code for special formating, this makes the document less portable:
+
+```
+<p style="color:green;">hello</p>
+```
+
+<p style="color:green;">hello</p>
+
+
+## R in Markdown
+
+````
+`r ''````{r}
+f <- function(x) {
+  sum(x ^ 2)
+}
+```
+````
+
+```{r}
+f <- function(x) {
+  sum(x ^ 2)
+}
+```
+
+The session is saved in background where the process was startet:
+
+```{r}
+f(1:5)
+```
+
+This also works with plots:
+
+````
+`r ''````{r}
+plot(1:10)
+```
+````
+
+```{r}
+plot(1:10)
+```
+
+### chunk options
+
+show code without evaluating
+
+````
+`r ''````{r, eval = FALSE}
+x <- 1:10
+x
+```
+````
+
+```{r, eval = FALSE}
+x <- 1:10
+x
+```
+
+show only the results
+
+````
+`r ''````{r, echo = FALSE}
+x <- 1:10
+x
+```
+````
+
+```{r, echo = FALSE}
+x <- 1:10
+x
+```
