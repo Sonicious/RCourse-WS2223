@@ -1,5 +1,5 @@
 
-# Data Exploring and Plotting II
+# Data Exploring and Plotting
 
 Todays topics:
 
@@ -80,12 +80,12 @@ wdi_series <-
 
     ## New names:
     ## • `` -> `...21`
-
+    
     ## Warning: One or more parsing issues, call `problems()` on your data frame for details,
     ## e.g.:
     ##   dat <- vroom(...)
     ##   problems(dat)
-
+    
     ## Rows: 1442 Columns: 21
     ## ── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
@@ -252,7 +252,7 @@ wdi_data_piv %>%
     ## ℹ Use `all_of(chosenCode)` instead of `chosenCode` to silence this message.
     ## ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
     ## This message is displayed once per session.
-
+    
     ## # A tibble: 62 × 3
     ##    `Country Code`  Year EN.ATM.CO2E.KT
     ##    <chr>          <int>          <dbl>

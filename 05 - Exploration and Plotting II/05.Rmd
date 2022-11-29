@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-# Data Exploring and Plotting II
+# Data Exploring and Plotting
 
 Todays topics:
 
