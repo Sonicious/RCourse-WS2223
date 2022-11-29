@@ -191,31 +191,3 @@ temperature <- ncvar_get(t2m_nc, "t2m",
 Here is an example output:
 
 ![](07_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
-
-## ERA 5 Data on the world map
-
-To finally work with raster data, we want to extract a whole raster
-instead of a single time series. for this we will simply extract the
-whole map and only one time step. We will learn about the `ggplot`
-possibilities and rasters more detailed next time.
-
-``` r
-t2m_data <- ncvar_get(t2m_nc, "t2m",
-  start=c(1,1,1,1),
-  count=c(1440,720,1,1)) - 273.15
-image(t2m_data)
-```
-
-![](07_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
-
-**Exercise**
-
-- As you see the plot is upside down. Use different indexing to turn it
-  around and plot it with `image`
-- Write a function which returns the index of a specific date in the
-  format “YYY-MM-DD” in the t2m_tax. Return `NA`, if it is not present
-  in the data.
-- Write a function which returns the temperature world map for a
-  specific monthly date using the function above
-- Add nice comments and tidy up everything in your R Project. We will
-  extend it next time
