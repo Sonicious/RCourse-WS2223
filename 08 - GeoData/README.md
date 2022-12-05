@@ -197,8 +197,7 @@ ggplot() +
 **Exercise**
 
 - There seems to be a problem with the mapping. What is this problem?
-- Fix the problem through storing `t2m_ras_new[[1]]` to a variable,
-  `rotate` the layer and change the `extend` accordingly
+- Fix the problem through `rotate` the layer
 
 **Trends**
 

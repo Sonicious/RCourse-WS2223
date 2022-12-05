@@ -154,7 +154,6 @@ ggplot() +
 ```{r, echo=FALSE, eval=FALSE}
 tt <- t2m_ras_new[[1]]
 tt <- rotate(tt)
-extend(tt,c(-180.125,180.125, -90.125, 90.125))
 ggplot() +
   geom_spatraster(data=tt) +
   geom_sf(data=countries_sf, fill=NA)
@@ -164,7 +163,7 @@ ggplot() +
 **Exercise**
 
 * There seems to be a problem with the mapping. What is this problem?
-* Fix the problem through storing `t2m_ras_new[[1]]` to a variable, `rotate` the layer and change the `extend` accordingly
+* Fix the problem through `rotate` the layer
 
 **Trends**
 
