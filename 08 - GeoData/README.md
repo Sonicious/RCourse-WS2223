@@ -105,25 +105,20 @@ dimensional array. Additionally there is a `values` function. Also the
 raster datasets can be saved for later use:
 
 ``` r
-## check for the "processed" directory and create it if not present
+# check for the "processed" directory and create it if not present
 if(!dir.exists("data/processed")) dir.create("data/processed")
+
 # filling rasters:
 my_raster<-rast(resolution=c(0.25,0.25), xmin=-0.125, xmax=359.875, ymin=-90.125, ymax=90.125)
 my_raster[1,1] <- 42
 values(my_raster) <- 1:1038240
-writeRaster(my_raster, "data/processed/TestData.nc", overwrite=TRUE)
-```
+writeCDF(my_raster, "data/processed/TestData.nc", overwrite=TRUE)
 
-    ## Warning: [consider writeCDF to write ncdf files]
-
-``` r
 # create rasters from data:
 data <- matrix(rnorm(18), nrow=3)
 new_raster <- rast(data, extent=ext(-180,180,-90,90))
-writeRaster(new_raster, "data/processed/moreTestData.nc", overwrite=TRUE)
+writeCDF(new_raster, "data/processed/moreTestData.nc", overwrite=TRUE)
 ```
-
-    ## Warning: [consider writeCDF to write ncdf files]
 
 You can also use the `ncdf4` package directly to save data in this
 format. This is more tricky but on the other hand more explicit and
@@ -143,6 +138,7 @@ ncdf_own_var <- ncvar_def("my_random", "unicorns/month",
 # create the dataset
 ncdf_own_nc <- nc_create("data/processed/ownNetcdf4Data.nc",
                           ncdf_own_var)
+# some dummy data
 data <- matrix(rnorm(721*1440), nrow=721)
 # write new values there
 ncvar_put(ncdf_own_nc, "my_random", data,
@@ -157,6 +153,16 @@ done through the additional `tidyterra` package.
 
 ``` r
 library(tidyterra)
+```
+
+    ## 
+    ## Attache Paket: 'tidyterra'
+
+    ## Das folgende Objekt ist maskiert 'package:stats':
+    ## 
+    ##     filter
+
+``` r
 ggplot() + geom_spatraster(data=t2m_ras_new[[1]]) + geom_sf()
 ```
 
@@ -170,6 +176,11 @@ classes:
 
 ``` r
 library(sf)
+```
+
+    ## Linking to GEOS 3.9.3, GDAL 3.5.2, PROJ 8.2.1; sf_use_s2() is TRUE
+
+``` r
 library(rnaturalearth)
 library(rnaturalearthdata)
 
@@ -186,25 +197,12 @@ ggplot() +
 **Exercise**
 
 - There seems to be a problem with the mapping. What is this problem?
-- Fix the problem through storing `t2m_ras_new[[1]]` to a variable and
-  change the `extend` accordingly
-- Find out how to get better coloring according to temperatures.
+- Fix the problem through storing `t2m_ras_new[[1]]` to a variable,
+  `rotate` the layer and change the `extend` accordingly
 
-### Recap: shapes in general
+**Trends**
 
-``` r
-countries_sf <- ne_countries(returnclass = "sf")
-country_info <- tibble(countrycode = countries_sf$iso_a3) %>% add_column(value=rnorm(177))
-map_data <- inner_join(countries_sf, country_info, by = c("iso_a3" = "countrycode"))
-map_data %>% ggplot() + aes(fill=value) + geom_sf()
-```
-
-![](08_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
-
-subsetting regions
-
-``` r
-countries_sf %>% filter(region_un=="Europe") %>% filter(iso_a3 != "RUS") %>% ggplot() + geom_sf()
-```
-
-![](08_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+- The file `trending.R` shows how to calculate the trends on a global
+  scale. Please calculate the trends globally on a simple scale or on
+  the full scale. Save the result as a netCDF.
+- send a plot of the trends
