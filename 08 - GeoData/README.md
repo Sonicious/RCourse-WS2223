@@ -170,17 +170,12 @@ ggplot() + geom_spatraster(data=t2m_ras_new[[1]]) + geom_sf()
 
 ![](08_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-Additionally you can add the worl map without filling, but with the
+Additionally you can add the world map without filling, but with the
 borders alone. Here we load the packages again we know from former
 classes:
 
 ``` r
 library(sf)
-```
-
-    ## Linking to GEOS 3.9.3, GDAL 3.5.2, PROJ 8.2.1; sf_use_s2() is TRUE
-
-``` r
 library(rnaturalearth)
 library(rnaturalearthdata)
 
@@ -189,8 +184,6 @@ ggplot() +
   geom_spatraster(data=t2m_ras_new[[1]]) +
   geom_sf(data=countries_sf, fill=NA)
 ```
-
-    ## SpatRaster resampled to ncells = 501000
 
 ![](08_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 

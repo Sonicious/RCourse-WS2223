@@ -139,9 +139,9 @@ library(tidyterra)
 ggplot() + geom_spatraster(data=t2m_ras_new[[1]]) + geom_sf()
 ```
 
-Additionally you can add the worl map without filling, but with the borders alone. Here we load the packages again we know from former classes:
+Additionally you can add the world map without filling, but with the borders alone. Here we load the packages again we know from former classes:
 
-```{r}
+```{r, message=FALSE}
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
@@ -158,7 +158,6 @@ ggplot() +
   geom_spatraster(data=tt) +
   geom_sf(data=countries_sf, fill=NA)
 ```
-
 
 **Exercise**
 
