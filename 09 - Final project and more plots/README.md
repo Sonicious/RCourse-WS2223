@@ -108,7 +108,7 @@ Also more complex CRS projections are possible
 ``` r
 ggplot() +
   geom_sf(data = map_data, aes(fill=my_value)) +
-  coord_sf(crs = "+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs ")
+  coord_sf(crs = "+proj=laea +lat_0=52 +lon_0=10 +ellps=GRS80")
 ```
 
 ![](09_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> Next to these

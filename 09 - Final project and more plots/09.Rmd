@@ -77,7 +77,7 @@ Also more complex CRS projections are possible
 ```{r}
 ggplot() +
   geom_sf(data = map_data, aes(fill=my_value)) +
-  coord_sf(crs = "+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs ")
+  coord_sf(crs = "+proj=laea +lat_0=52 +lon_0=10 +ellps=GRS80")
 ```
 Next to these plots based on the country-codes, it is also possible to use other joining methods. Here are some more interesting column, you might to want to look at:
 
