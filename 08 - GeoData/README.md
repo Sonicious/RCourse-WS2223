@@ -48,7 +48,7 @@ t2m_data <- ncvar_get(t2m_nc, "t2m",
 image(t2m_data)
 ```
 
-![](08_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](08_files/figure-gfm/unnamed-chunk-2-1.png)
 
 **Exercise**
 
@@ -157,7 +157,7 @@ library(tidyterra)
 
     ## 
     ## Attache Paket: 'tidyterra'
-
+    
     ## Das folgende Objekt ist maskiert 'package:stats':
     ## 
     ##     filter

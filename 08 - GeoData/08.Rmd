@@ -30,7 +30,6 @@ Today we want to continue our project based on the NetCDF data which was provide
   t2m_nc_idx <- seq_along(t2m_nc_tax) ## create sequence along list of dates
 ```
 
-
 ## Recap
 
 Remember the last exercise from last lecture? It was about creating a trend for a specific location on earth. We created several functions which gave us an easier access to the data and find specific locations based on the latitude/longitude grid. Also we found out how to work with the data and how to access the specific data.
