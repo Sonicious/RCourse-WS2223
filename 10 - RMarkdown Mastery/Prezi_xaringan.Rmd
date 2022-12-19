@@ -1,0 +1,61 @@
+---
+title: "Presentation Ninja"
+subtitle: "with xaringan"
+author: "Martin Reinhardt"
+output:
+  xaringan::moon_reader:
+    nature:
+      theme: sky
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+# General stuff
+
+In `xaringang` the slides are completely controlled by `---` and not by headers.
+
+---
+
+# Two coloumn slides
+
+Also double cloumn slides are easy to manage
+
+.pull-left[
+* One bullet.
+* Another bullet.
+]
+
+.pull-right[
+![an image](logo.png)
+]
+
+---
+
+Some incremental slides are possible with `--`
+
+--
+
+* Some Bullet
+* One more
+* all non incremental
+--
+
+* and one more incremental
+
+--
+
+It even works with images:
+
+![an image](logo.png)
+
+---
+background-image: url(./Background.jpeg)
+background-size: cover
+
+Also background images are possible again
+
+---
+
+.center[This text is shown in the center]
+
+It was made possible with the `.center[...]` class.
