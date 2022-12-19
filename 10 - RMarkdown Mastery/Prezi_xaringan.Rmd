@@ -59,3 +59,19 @@ Also background images are possible again
 .center[This text is shown in the center]
 
 It was made possible with the `.center[...]` class.
+
+---
+
+Presenter Notes are also possible with xaringan. You can simply add three question marks `???`
+All further Markdown until the end of the slide will be presenter notes.
+
+???
+
+* One presenter note
+* One more
+
+And even more things to say here
+
+Or images:
+
+![Logo](logo.png)
