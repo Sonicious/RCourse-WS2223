@@ -1,0 +1,96 @@
+---
+title: "Iris Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+Here is some Explanation of the whole Dashboard
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+iris %>% tibble -> data
+```
+
+Visualizations {data-icon="fa-signal"}
+===================================== 
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Petal leaves plot
+
+```{r}
+iris %>%
+  tibble %>% 
+  ggplot(aes(x = Petal.Length, y = Petal.Width)) +
+  geom_point(aes(color = Species, shape = Species))
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Data Explanation
+
+The Iris Dataset is about the traits of different Iris flowers from the same family.
+
+### Image of Iris flowers
+
+![Iris flowers](iris.png)
+
+Tables {data-icon="fa-table"}
+=====================================
+
+This area shows how to show tables and how the function `knitr::kable()` can improve the way of displaying dataframes, tibbles or similar structures.
+
+### Data overview
+
+There is an equal amount of datapoints in each species (no `kable()` function used).
+    
+```{r}
+data %>%
+  group_by(Species) %>%
+  count
+```
+    
+### Whole Dataset
+
+The whole dataset (with `kable()` function)
+
+```{r}
+data %>% knitr::kable()
+```
+
+Gauges {data-icon="fa-tachometer-alt"}
+=====================================
+
+Gauges are perfect for incremental growing data where you just update your dashboard periodically and see updated values. Also these work perfectly together with the Shiny package.
+
+### Contact Rate
+
+```{r}
+value <- 91
+gauge(value, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
+))
+```
+
+### Average Rating 
+
+```{r}
+value <- 37.4
+gauge(value, min = 0, max = 50, gaugeSectors(
+  success = c(41, 50), warning = c(21, 40), danger = c(0, 20)
+))
+```
+
+### Cancellations
+
+```{r}
+value <- 7
+gauge(value, min = 0, max = 10, gaugeSectors(
+  success = c(0, 2), warning = c(3, 6), danger = c(7, 10)
+))
+```
