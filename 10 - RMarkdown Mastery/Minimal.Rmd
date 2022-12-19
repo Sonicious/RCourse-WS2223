@@ -1,0 +1,14 @@
+---
+title: "Minimal Example"
+author: "Martin Reinhardt"
+date: "December 18th, 2022"
+output: html_document
+---
+
+Here is some Code Block with R Code
+
+```{r}
+a <- 1
+b <- 2
+a + b*2
+```
