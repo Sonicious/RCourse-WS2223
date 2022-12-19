@@ -1,0 +1,70 @@
+---
+title: "Minimal R"
+author: Jimmy John
+output: 
+  ioslides_presentation:
+    incremental: false
+    widescreen: true
+    transition: faster
+    logo: logo.png
+---
+
+# In the morning
+
+## Some slide
+
+* Some Blabla
+* And even more blabla
+
+---
+
+You can also make bulletins incremental without the global option:
+
+> * 3
+> * 2
+> * 1
+
+## Some new slide {.smaller}
+
+You can make text look smaller
+
+## Code example
+
+```{r}
+a <- 1
+b <- 1
+c <- a + b
+c
+```
+
+## Background {data-background=#00B9E3}
+
+Background color:
+
+`{data-background=#00B9E3}`
+
+## Background image {data-background=Background.jpeg data-background-size=cover}
+
+Even cooler:
+
+`{data-background=Background.jpeg data-background-size=cover}`
+
+## Centered content {.flexbox .vcenter}
+
+This is centered. Made possible with 
+
+`{.flexbox .vcenter}`
+
+## Presenter notes
+
+Most other things can also be controlled, but need some knowledge of HTML/CSS. This includes also the presenter notes. Click `p` to show how it works. And the slides source code.
+
+<div class="notes">
+* first, you need to put "?presentme=true" after the xxx.html. Allow pop-up if blocked.
+* second, turn on presentor mode by pressing key "p"
+* then you'll see the notes
+</div>
+
+## End
+
+The End
