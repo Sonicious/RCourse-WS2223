@@ -143,12 +143,12 @@ Another Package which creates probably the best presentations possible in R Mark
 install.packages('xaringan')
 ```
 
-Xaringan presentations have several amazing features. Let's start with some things how to use them. You can use the `h` key to show help how you can control them. A classic approach is to clone the presentation to have two browser windows. These are synced. Usually you run one in presenter mode and the other in fullscreen mode.
+Xaringan presentations have several amazing features. Let's start with some things how to use them. You can use the `h` key to show help how you can control them. A classic approach is to clone the presentation to have two browser windows. These are synced. Usually you run one in presenter mode and the other in full screen mode.
 
 Please consult the `Prezi_xaringan.Rmd` for a minimal introduction to `xaringan`. There are much more details to this library. This file just gives a very rough introduction.
 
 **Exercise:**
-Create a Presentaion with at least 5 slides about some R code about the iris dataset. You can use either `ioslides` or `xaringan`.
+Create a Presentation with at least 5 slides about some R code about the iris data set. You can use either `ioslides` or `xaringan`.
 
 ## Dashboards
 
